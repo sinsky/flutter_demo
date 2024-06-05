@@ -11,20 +11,45 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:my_awesome_namer/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Like button test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
+    expect(find.text("Like"), findsOneWidget);
+    expect(find.text("Next"), findsOneWidget);
+    final likeButton = find.byKey(const Key('like_button'));
+    // click前はfavorite_border icon
+    expect(
+        find.descendant(
+            of: likeButton, matching: find.byIcon(Icons.favorite_border)),
+        findsOneWidget);
+    // clickできることを確認する
+    await tester.tap(likeButton);
+    await tester.pumpAndSettle();
+    // click後はfavorite icon
+    expect(
+        find.descendant(of: likeButton, matching: find.byIcon(Icons.favorite)),
+        findsOneWidget);
+  });
+  testWidgets("Next button test", (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+    expect(find.text("Next"), findsOneWidget);
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    final cardTextFinder = find.byKey(const Key("big_card"));
+    final clickBeforeText = tester
+        .firstWidget<Text>(
+            find.descendant(of: cardTextFinder, matching: find.byType(Text)))
+        .data;
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    final nextButton = find.byKey(const Key('next_button'));
+    // clickできることを確認する
+    await tester.tap(nextButton);
+    await tester.pumpAndSettle();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    final clickAfterText = tester
+        .firstWidget<Text>(
+            find.descendant(of: cardTextFinder, matching: find.byType(Text)))
+        .data;
+    // テキストが変更されることを確認する
+    expect(clickBeforeText, isNot(clickAfterText));
   });
 }
