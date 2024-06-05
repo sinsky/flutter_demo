@@ -2,9 +2,9 @@ include: package:flutter_lints/flutter.yaml
 
 linter:
   rules:
-    prefer_const_constructors: false
-    prefer_final_fields: false
-    use_key_in_widget_constructors: false
-    prefer_const_literals_to_create_immutables: false
-    prefer_const_constructors_in_immutables: false
-    avoid_print: false
+    prefer_const_constructors: false # 定数コンストラクタのconstを優先する。
+    prefer_final_fields: false # privateフィールドをfinalにする
+    use_key_in_widget_constructors: false # ウィジェットのコンストラクタでキーを使用します。
+    prefer_const_literals_to_create_immutables: false # @immutableクラスのコンストラクタのパラメータとしてconstリテラルを優先する。
+    prefer_const_constructors_in_immutables: false # @immutableクラスでconstを宣言する方が好ましい。
+    avoid_print: false # print文があったら警告を出力するか
