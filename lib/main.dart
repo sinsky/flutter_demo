@@ -150,12 +150,16 @@ class GeneratorPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          BigCard(pair: pair),
+          BigCard(
+            pair: pair,
+            key: const Key("big_card"),
+          ),
           SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton.icon(
+                key: const Key("like_button"),
                 onPressed: () {
                   appState.toggleFavorite();
                 },
@@ -164,6 +168,7 @@ class GeneratorPage extends StatelessWidget {
               ),
               SizedBox(width: 10),
               ElevatedButton(
+                key: const Key("next_button"),
                 onPressed: () {
                   appState.getNext();
                 },
